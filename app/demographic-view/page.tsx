@@ -7,6 +7,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { MarketingData } from '@/src/types/marketing';
 import { fetchMarketingData } from '@/src/lib/api';
 import { BarChart } from '@/src/components/ui/bar-chart';
+import { Table } from '@/src/components/ui/table';
 
 export default function DemographicView() {
   const [marketingData, setMarketingData] = useState<MarketingData | null>(null);
@@ -86,6 +87,53 @@ export default function DemographicView() {
     return performance;
   }, [marketingData?.campaigns]);
 
+  const ageGenderPerformance = useMemo(() => {
+    const performance: {
+      [gender: string]: {
+        [age_group: string]: {
+          impressions: number;
+          clicks: number;
+          conversions: number;
+        }
+      }
+    } = { Male: {}, Female: {} };
+
+    if (!marketingData?.campaigns) {
+      return { maleData: [], femaleData: [] };
+    }
+
+    marketingData.campaigns.forEach(campaign => {
+      campaign.demographic_breakdown.forEach(demo => {
+        if (!performance[demo.gender]) {
+          performance[demo.gender] = {};
+        }
+        if (!performance[demo.gender][demo.age_group]) {
+          performance[demo.gender][demo.age_group] = { impressions: 0, clicks: 0, conversions: 0 };
+        }
+
+        performance[demo.gender][demo.age_group].impressions += demo.performance.impressions;
+        performance[demo.gender][demo.age_group].clicks += demo.performance.clicks;
+        performance[demo.gender][demo.age_group].conversions += demo.performance.conversions;
+      });
+    });
+
+    const processData = (gender: 'Male' | 'Female') => {
+      return Object.entries(performance[gender]).map(([age_group, stats]) => ({
+        age_group,
+        impressions: stats.impressions,
+        clicks: stats.clicks,
+        conversions: stats.conversions,
+        ctr: stats.impressions > 0 ? (stats.clicks / stats.impressions) * 100 : 0,
+        conversion_rate: stats.clicks > 0 ? (stats.conversions / stats.clicks) * 100 : 0,
+      }));
+    };
+
+    return {
+      maleData: processData('Male'),
+      femaleData: processData('Female'),
+    };
+  }, [marketingData?.campaigns]);
+
 
   if (loading) {
     return (
@@ -152,7 +200,7 @@ export default function DemographicView() {
                   <CardMetric
                     title="Total Clicks by Females"
                     value={demographicStats.female.clicks}
-                    icon={<Users className="h-5 w-5" />}
+                    icon={<Target className="h-5 w-5" />}
                   />
                   <CardMetric
                     title="Total Spend on Females"
@@ -197,11 +245,50 @@ export default function DemographicView() {
           </div>
         )}
 
+        {/* Campaign Performance by Male Age Groups (Impressions, Clicks, Conversions, CTR, Conversion Rates) */}
+        {/* Campaign Performance by Female Age Groups (Impressions, Clicks, Conversions, CTR, Conversion Rates) */}
+
+        {/* Age Group Performance Tables */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8 p-4 lg:p-6">
+          {/* Male Age Group Performance */}
+          <Table
+            title="Campaign Performance by Male Age Groups"
+            showIndex={true}
+            maxHeight="400px"
+            columns={[
+              { key: 'age_group', header: 'Age Group', sortable: true, sortType: 'string', },
+              { key: 'impressions', header: 'Impressions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
+              { key: 'clicks', header: 'Clicks', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
+              { key: 'conversions', header: 'Conversions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
+              { key: 'ctr', header: 'CTR', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` },
+              { key: 'conversion_rate', header: 'Conv. Rate', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` }
+            ]}
+            defaultSort={{ key: 'impressions', direction: 'desc' }}
+            data={ageGenderPerformance.maleData}
+            emptyMessage="No data available for male age groups."
+          />
+
+          {/* Female Age Group Performance */}
+          <Table
+            title="Campaign Performance by Female Age Groups"
+            columns={[
+              { key: 'age_group', header: 'Age Group', sortable: true, sortType: 'string' },
+              { key: 'impressions', header: 'Impressions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
+              { key: 'clicks', header: 'Clicks', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
+              { key: 'conversions', header: 'Conversions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
+              { key: 'ctr', header: 'CTR', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` },
+              { key: 'conversion_rate', header: 'Conv. Rate', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` },
+            ]}
+            data={ageGenderPerformance.femaleData}
+            defaultSort={{ key: 'impressions', direction: 'desc' }}
+            emptyMessage="No data available for female age groups."
+          />
+
+        </div>
+
+
         <Footer />
       </div>
     </div>
   );
 }
-
-
-
