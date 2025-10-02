@@ -7,13 +7,13 @@ import { BarChart } from '../../src/components/bar-chart';
 import { Table } from '../../src/components/table';
 import { SearchFilter } from '../../src/components/search-filter';
 import { DropdownFilter } from '../../src/components/dropdown-filter';
+import { HeroSection } from '../../src/components/hero-section';
 import { Target, DollarSign, TrendingUp, Users, Filter } from 'lucide-react';
 
 export default function CampaignView() {
   // Filter states
   const [nameFilter, setNameFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState<string[]>([]);
-
   const { marketingData } = useMarketingData();
 
   // Filter campaigns based on current filter values
@@ -36,14 +36,7 @@ export default function CampaignView() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-8 sm:py-12">
-        <div className="px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
-            Campaign Performance
-          </h1>
-        </div>
-      </section>
+      <HeroSection title="Campaign Performance" />
 
       {/* Content Area */}
       <div className="flex-1 p-3 sm:p-4 lg:p-6 w-full max-w-full">

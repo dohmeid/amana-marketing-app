@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 import { LineChart } from '../../src/components/line-chart';
 import { useMarketingData } from '@/src/context/marketing-dataprovider';
+import { HeroSection } from '../../src/components/hero-section';
 
 export default function WeeklyView() {
 
@@ -43,17 +44,7 @@ export default function WeeklyView() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-12">
-        <div className="px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-3xl md:text-5xl font-bold">
-              Weekly View
-            </h1>
-          </div>
-        </div>
-      </section>
-
+      <HeroSection title="Weekly View" />
       {/* display revenue by week and spend by week.  */}
       <div className="p-6 lg:p-6 overflow-y-auto grid grid-cols-1 xl:grid-cols-2 gap-6">
         {marketingData && (

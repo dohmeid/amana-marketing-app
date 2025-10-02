@@ -10,6 +10,7 @@ const Map = dynamic(() => import('@/src/components/map'), {
 });
 
 import { LatLngExpression } from 'leaflet';
+import { HeroSection } from '@/src/components/hero-section';
 
 const regionCoordinates: { [key: string]: LatLngExpression } = {
   "Abu Dhabi": [24.4539, 54.3773],
@@ -63,16 +64,7 @@ export default function RegionView() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-12">
-        <div className="px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-3xl md:text-5xl font-bold">
-              Region Performance
-            </h1>
-          </div>
-        </div>
-      </section>
+      <HeroSection title="Region Performance" />
 
       {/* Content Area */}
       <div className="flex-1 p-4 lg:p-6 overflow-y-auto">

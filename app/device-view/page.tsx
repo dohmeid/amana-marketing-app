@@ -4,6 +4,7 @@ import { CardMetric } from '@/src/components/card-metric';
 import { BarChart } from '@/src/components/bar-chart';
 import { DollarSign, Smartphone, Monitor } from 'lucide-react';
 import { useMarketingData } from '@/src/context/marketing-dataprovider';
+import { HeroSection } from '@/src/components/hero-section';
 
 export default function RegionView() {
     const { marketingData } = useMarketingData();
@@ -34,16 +35,7 @@ export default function RegionView() {
 
     return (
         <>
-            {/* Hero Section */}
-            <section className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-12">
-                <div className="px-6 lg:px-8">
-                    <div className="text-center">
-                        <h1 className="text-3xl md:text-5xl font-bold">
-                            Device Performance
-                        </h1>
-                    </div>
-                </div>
-            </section>
+            <HeroSection title="Device Performance" />
 
             {/* Content Area */}
             <div className="flex-1 p-4 lg:p-6 overflow-y-auto">
