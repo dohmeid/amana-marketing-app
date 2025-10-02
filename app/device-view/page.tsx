@@ -1,30 +1,12 @@
 "use client";
-import { useState, useEffect, useMemo } from 'react';
-import { MarketingData } from '@/src/types/marketing';
-import { fetchMarketingData } from '@/src/lib/api';
+import { useMemo } from 'react';
 import { CardMetric } from '@/src/components/card-metric';
 import { BarChart } from '@/src/components/bar-chart';
 import { DollarSign, Smartphone, Monitor } from 'lucide-react';
+import { useMarketingData } from '@/src/context/marketing-dataprovider';
 
 export default function RegionView() {
-    const [marketingData, setMarketingData] = useState<MarketingData | null>(null);
-    const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const loadData = async () => {
-            try {
-                const data = await fetchMarketingData();
-                setMarketingData(data);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : 'Failed to load data');
-                console.error('Error loading marketing data:', err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadData();
-    }, []);
+   const { marketingData, loading, error } = useMarketingData();
 
 
     const devicePerformance = useMemo(() => {

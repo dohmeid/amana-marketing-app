@@ -1,31 +1,10 @@
 "use client";
-import { useState, useEffect } from 'react';
-import { fetchMarketingData } from '../src/lib/api';
-import { MarketingData } from '../src/types/marketing';
+import { useMarketingData } from '../src/context/marketing-dataprovider';
 import { CardMetric } from '../src/components/card-metric';
 import { Target, DollarSign, TrendingUp, Users, Calendar, Clock, ShoppingBag, MapPin } from 'lucide-react';
 
 export default function Home() {
-  const [marketingData, setMarketingData] = useState<MarketingData | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  // Load data on component mount
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const data = await fetchMarketingData();
-        setMarketingData(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load data');
-        console.error('Error loading marketing data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, []);
+  const { marketingData, loading, error } = useMarketingData();
 
   return (
     <>
@@ -154,7 +133,6 @@ export default function Home() {
           </div>
         )}
       </div>
-
     </>
   );
 }

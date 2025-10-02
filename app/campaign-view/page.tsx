@@ -1,7 +1,7 @@
 "use client";
-import { useState, useEffect, useMemo } from 'react';
-import { fetchMarketingData } from '../../src/lib/api';
-import { MarketingData, Campaign } from '../../src/types/marketing';
+import { useState, useMemo } from 'react';
+import { Campaign } from '../../src/types/marketing';
+import { useMarketingData } from '../../src/context/marketing-dataprovider';
 import { CardMetric } from '../../src/components/card-metric';
 import { BarChart } from '../../src/components/bar-chart';
 import { Table } from '../../src/components/table';
@@ -10,30 +10,11 @@ import { DropdownFilter } from '../../src/components/dropdown-filter';
 import { Target, DollarSign, TrendingUp, Users, Activity, Zap, Filter } from 'lucide-react';
 
 export default function CampaignView() {
-  const [marketingData, setMarketingData] = useState<MarketingData | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
   // Filter states
   const [nameFilter, setNameFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState<string[]>([]);
 
-  // Load data on component mount
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const data = await fetchMarketingData();
-        setMarketingData(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load data');
-        console.error('Error loading marketing data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, []);
+  const { marketingData, loading, error } = useMarketingData();
 
   // Filter campaigns based on current filter values
   const filteredCampaigns = useMemo(() => {
@@ -55,7 +36,7 @@ export default function CampaignView() {
 
   if (loading) {
     return (
-      <div className="flex h-screen bg-gray-900 items-center justify-center">
+      <div className="flex-1 flex items-center justify-center">
         <div className="text-white">Loading...</div>
       </div>
     );

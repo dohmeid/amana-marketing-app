@@ -1,33 +1,15 @@
 "use client";
 import { CardMetric } from '../../src/components/card-metric';
 import { TrendingUp, Target, DollarSign } from 'lucide-react';
-import { useState, useEffect, useMemo } from 'react';
-import { MarketingData } from '@/src/types/marketing';
-import { fetchMarketingData } from '@/src/lib/api';
+import { useMemo } from 'react';
 import { BarChart } from '@/src/components/bar-chart';
 import { Table } from '@/src/components/table';
+import { useMarketingData } from '@/src/context/marketing-dataprovider';
+
 
 export default function DemographicView() {
-  const [marketingData, setMarketingData] = useState<MarketingData | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { marketingData, loading, error } = useMarketingData();
 
-  // Load data on component mount
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const data = await fetchMarketingData();
-        setMarketingData(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load data');
-        console.error('Error loading marketing data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, []);
 
   const demographicStats = useMemo(() => {
     const stats = {
@@ -135,7 +117,7 @@ export default function DemographicView() {
 
   if (loading) {
     return (
-      <div className="flex h-screen bg-gray-900 items-center justify-center">
+      <div className="flex-1 flex items-center justify-center">
         <div className="text-white">Loading...</div>
       </div>
     );

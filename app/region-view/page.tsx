@@ -1,8 +1,8 @@
 "use client";
-import { useState, useEffect, useMemo, Suspense } from 'react';
-import { MarketingData, RegionalPerformance } from '@/src/types/marketing';
-import { fetchMarketingData } from '@/src/lib/api';
+import { useMemo, Suspense } from 'react';
+import {  RegionalPerformance } from '@/src/types/marketing';
 import dynamic from 'next/dynamic';
+import { useMarketingData } from '@/src/context/marketing-dataprovider';
 
 const Map = dynamic(() => import('@/src/components/map'), {
   ssr: false,
@@ -26,24 +26,8 @@ const regionCoordinates: { [key: string]: LatLngExpression } = {
 
 
 export default function RegionView() {
-  const [marketingData, setMarketingData] = useState<MarketingData | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+   const { marketingData, loading, error } = useMarketingData();
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const data = await fetchMarketingData();
-        setMarketingData(data);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load data');
-        console.error('Error loading marketing data:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadData();
-  }, []);
 
   const regionalPerformance = useMemo(() => {
     if (!marketingData?.campaigns) return [];

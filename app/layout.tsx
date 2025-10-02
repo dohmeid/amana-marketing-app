@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/src/components/navbar";
 import { Footer } from "@/src/components/footer";
+import { MarketingDataProvider } from "./../src/context/marketing-dataprovider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -27,15 +28,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 text-white`}
-      >
-        <div className="flex-1 flex flex-col transition-all duration-300 ease-in-out h-screen bg-gray-900 lg:flex-row">
-          <Navbar />
-          <main className="flex-1 flex flex-col overflow-y-auto">
-            {children}
-            <Footer />
-          </main>
-        </div>
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-900 text-white`}>
+        <MarketingDataProvider>
+          <div className="flex-1 flex flex-col transition-all duration-300 ease-in-out h-screen bg-gray-900 lg:flex-row">
+            <Navbar />
+            <main className="flex-1 flex flex-col overflow-y-auto">
+              {children}
+              <Footer />
+            </main>
+          </div>
+        </MarketingDataProvider>
       </body>
     </html>
   );
