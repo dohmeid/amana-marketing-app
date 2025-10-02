@@ -1,6 +1,4 @@
 "use client";
-import { Navbar } from '../../src/components/ui/navbar';
-import { Footer } from '../../src/components/ui/footer';
 import { useState, useEffect, useMemo, Suspense } from 'react';
 import { MarketingData, RegionalPerformance } from '@/src/types/marketing';
 import { fetchMarketingData } from '@/src/lib/api';
@@ -84,50 +82,40 @@ export default function RegionView() {
 
   if (loading) {
     return (
-      <div className="flex h-screen bg-gray-900">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-white">Loading...</div>
-        </div>
+      <div className="flex h-screen bg-gray-900 items-center justify-center">
+        <div className="text-white">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="flex h-screen bg-gray-900">
-      <Navbar />
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col transition-all duration-300 ease-in-out overflow-hidden">
-
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-12">
-          <div className="px-6 lg:px-8">
-            <div className="text-center">
-              <h1 className="text-3xl md:text-5xl font-bold">
-                Region Performance
-              </h1>
-            </div>
+    <>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-12">
+        <div className="px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-3xl md:text-5xl font-bold">
+              Region Performance
+            </h1>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Content Area */}
-        <div className="flex-1 p-4 lg:p-6 overflow-y-auto">
-          {/* Page content will go here */}
+      {/* Content Area */}
+      <div className="flex-1 p-4 lg:p-6 overflow-y-auto">
+        {/* Page content will go here */}
         <div className="flex-1 p-4 lg:p-6 h-[60vh] md:h-[70vh]">
-            {loading ? <div className="text-white text-center">Loading data...</div> :
-              error ? <div className="text-red-400 text-center">Error: {error}</div> :
-                (
-                  <Suspense fallback={<div className="text-white text-center">Loading map...</div>}>
-                    <Map data={mapData} />
-                  </Suspense>
-                )}
-          </div>
-
-          <Footer />
+          {loading ? <div className="text-white text-center">Loading data...</div> :
+            error ? <div className="text-red-400 text-center">Error: {error}</div> :
+              (
+                <Suspense fallback={<div className="text-white text-center">Loading map...</div>}>
+                  <Map data={mapData} />
+                </Suspense>
+              )}
         </div>
 
       </div>
-    </div>
+
+    </>
   );
 }

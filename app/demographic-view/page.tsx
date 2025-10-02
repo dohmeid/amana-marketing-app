@@ -1,8 +1,6 @@
 "use client";
-import { Navbar } from '../../src/components/ui/navbar';
 import { CardMetric } from '../../src/components/ui/card-metric';
-import { Footer } from '../../src/components/ui/footer';
-import { Users, TrendingUp, Target, DollarSign } from 'lucide-react';
+import { TrendingUp, Target, DollarSign } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
 import { MarketingData } from '@/src/types/marketing';
 import { fetchMarketingData } from '@/src/lib/api';
@@ -137,158 +135,145 @@ export default function DemographicView() {
 
   if (loading) {
     return (
-      <div className="flex h-screen bg-gray-900">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-white">Loading...</div>
-        </div>
+      <div className="flex h-screen bg-gray-900 items-center justify-center">
+        <div className="text-white">Loading...</div>
       </div>
     );
   }
 
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-gray-900">
-      <Navbar />
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col transition-all duration-300 ease-in-out overflow-hidden">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-12">
-          <div className="px-6 lg:px-8">
-            <div className="text-center">
-              <h1 className="text-3xl md:text-5xl font-bold">
-                Demographic View
-              </h1>
-            </div>
+    <>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-12">
+        <div className="px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-3xl md:text-5xl font-bold">
+              Demographic View
+            </h1>
           </div>
-        </section>
-
-        {/* Content Area */}
-        <div className="flex-1 p-4 lg:p-6 overflow-y-auto w-full max-w-full">
-          {error && (
-            <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded mb-4 max-w-2xl mx-auto">
-              Error loading data: {error}
-            </div>
-          )}
-          {marketingData && (
-            <>
-              <div className="mb-8">
-                <h2 className="text-xl font-semibold text-white mb-4">Male Audience Performance</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <CardMetric
-                    title="Total Clicks by Males"
-                    value={demographicStats.male.clicks}
-                    icon={<Target className="h-5 w-5" />}
-                  />
-                  <CardMetric
-                    title="Total Spend on Males"
-                    value={`$${demographicStats.male.spend.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-                    icon={<DollarSign className="h-5 w-5" />}
-                  />
-                  <CardMetric
-                    title="Total Revenue from Males"
-                    value={`$${demographicStats.male.revenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-                    icon={<TrendingUp className="h-5 w-5" />}
-                  />
-                </div>
-              </div>
-
-              <div>
-                <h2 className="text-xl font-semibold text-white mb-4">Female Audience Performance</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <CardMetric
-                    title="Total Clicks by Females"
-                    value={demographicStats.female.clicks}
-                    icon={<Target className="h-5 w-5" />}
-                  />
-                  <CardMetric
-                    title="Total Spend on Females"
-                    value={`$${demographicStats.female.spend.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-                    icon={<DollarSign className="h-5 w-5" />}
-                  />
-                  <CardMetric
-                    title="Total Revenue from Females"
-                    value={`$${demographicStats.female.revenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-                    icon={<TrendingUp className="h-5 w-5" />}
-                  />
-                </div>
-              </div>
-            </>
-          )}
         </div>
+      </section>
 
-        {/* Campaign Performance Charts */}
-        {Object.keys(ageGroupPerformance).length > 0 && (
-          <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8 p-4 lg:p-6">
-            {/* Total Spend by Age Group */}
-            <BarChart
-              title="Total Spend by Age Group"
-              data={Object.keys(ageGroupPerformance).map(ageGroup => ({
-                label: ageGroup,
-                value: ageGroupPerformance[ageGroup].spends,
-                color: '#10B981'
-              }))}
-              formatValue={(value) => `$${value.toLocaleString()}`}
-            />
-
-            {/* Total Revenue by Age Group */}
-            <BarChart
-              title="Total Revenue by Age Group"
-              data={Object.keys(ageGroupPerformance).map(ageGroup => ({
-                label: ageGroup,
-                value: ageGroupPerformance[ageGroup].revenues,
-                color: '#3B82F6'
-              }))}
-              formatValue={(value) => `$${value.toLocaleString()}`}
-            />
+      {/* Content Area */}
+      <div className="flex-1 p-4 lg:p-6 h-full w-full max-w-full">
+        {error && (
+          <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded mb-4 max-w-2xl mx-auto">
+            Error loading data: {error}
           </div>
         )}
+        {marketingData && (
+          <>
+            <div className="mb-8">
+              <h2 className="text-xl font-semibold text-white mb-4">Male Audience Performance</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <CardMetric
+                  title="Total Clicks by Males"
+                  value={demographicStats.male.clicks}
+                  icon={<Target className="h-5 w-5" />}
+                />
+                <CardMetric
+                  title="Total Spend on Males"
+                  value={`$${demographicStats.male.spend.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                  icon={<DollarSign className="h-5 w-5" />}
+                />
+                <CardMetric
+                  title="Total Revenue from Males"
+                  value={`$${demographicStats.male.revenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                  icon={<TrendingUp className="h-5 w-5" />}
+                />
+              </div>
+            </div>
 
-        {/* Campaign Performance by Male Age Groups (Impressions, Clicks, Conversions, CTR, Conversion Rates) */}
-        {/* Campaign Performance by Female Age Groups (Impressions, Clicks, Conversions, CTR, Conversion Rates) */}
-
-        {/* Age Group Performance Tables */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8 p-4 lg:p-6">
-          {/* Male Age Group Performance */}
-          <Table
-            title="Campaign Performance by Male Age Groups"
-            showIndex={true}
-            maxHeight="400px"
-            columns={[
-              { key: 'age_group', header: 'Age Group', sortable: true, sortType: 'string', },
-              { key: 'impressions', header: 'Impressions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
-              { key: 'clicks', header: 'Clicks', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
-              { key: 'conversions', header: 'Conversions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
-              { key: 'ctr', header: 'CTR', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` },
-              { key: 'conversion_rate', header: 'Conv. Rate', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` }
-            ]}
-            defaultSort={{ key: 'impressions', direction: 'desc' }}
-            data={ageGenderPerformance.maleData}
-            emptyMessage="No data available for male age groups."
-          />
-
-          {/* Female Age Group Performance */}
-          <Table
-            title="Campaign Performance by Female Age Groups"
-            columns={[
-              { key: 'age_group', header: 'Age Group', sortable: true, sortType: 'string' },
-              { key: 'impressions', header: 'Impressions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
-              { key: 'clicks', header: 'Clicks', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
-              { key: 'conversions', header: 'Conversions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
-              { key: 'ctr', header: 'CTR', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` },
-              { key: 'conversion_rate', header: 'Conv. Rate', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` },
-            ]}
-            data={ageGenderPerformance.femaleData}
-            defaultSort={{ key: 'impressions', direction: 'desc' }}
-            emptyMessage="No data available for female age groups."
-          />
-
-        </div>
-
-
-        <Footer />
+            <div>
+              <h2 className="text-xl font-semibold text-white mb-4">Female Audience Performance</h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <CardMetric
+                  title="Total Clicks by Females"
+                  value={demographicStats.female.clicks}
+                  icon={<Target className="h-5 w-5" />}
+                />
+                <CardMetric
+                  title="Total Spend on Females"
+                  value={`$${demographicStats.female.spend.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                  icon={<DollarSign className="h-5 w-5" />}
+                />
+                <CardMetric
+                  title="Total Revenue from Females"
+                  value={`$${demographicStats.female.revenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+                  icon={<TrendingUp className="h-5 w-5" />}
+                />
+              </div>
+            </div>
+          </>
+        )}
       </div>
-    </div>
+
+      {/* Campaign Performance Charts */}
+      {Object.keys(ageGroupPerformance).length > 0 && (
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8 p-4 lg:p-6">
+          {/* Total Spend by Age Group */}
+          <BarChart
+            title="Total Spend by Age Group"
+            data={Object.keys(ageGroupPerformance).map(ageGroup => ({
+              label: ageGroup,
+              value: ageGroupPerformance[ageGroup].spends,
+              color: '#10B981'
+            }))}
+            formatValue={(value) => `$${value.toLocaleString()}`}
+          />
+
+          {/* Total Revenue by Age Group */}
+          <BarChart
+            title="Total Revenue by Age Group"
+            data={Object.keys(ageGroupPerformance).map(ageGroup => ({
+              label: ageGroup,
+              value: ageGroupPerformance[ageGroup].revenues,
+              color: '#3B82F6'
+            }))}
+            formatValue={(value) => `$${value.toLocaleString()}`}
+          />
+        </div>
+      )}
+
+      {/* Age Group Performance Tables */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8 p-4 lg:p-6">
+        {/* Male Age Group Performance */}
+        <Table
+          title="Campaign Performance by Male Age Groups"
+          showIndex={true}
+          maxHeight="400px"
+          columns={[
+            { key: 'age_group', header: 'Age Group', sortable: true, sortType: 'string', },
+            { key: 'impressions', header: 'Impressions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
+            { key: 'clicks', header: 'Clicks', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
+            { key: 'conversions', header: 'Conversions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
+            { key: 'ctr', header: 'CTR', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` },
+            { key: 'conversion_rate', header: 'Conv. Rate', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` }
+          ]}
+          defaultSort={{ key: 'impressions', direction: 'desc' }}
+          data={ageGenderPerformance.maleData}
+          emptyMessage="No data available for male age groups."
+        />
+
+        {/* Female Age Group Performance */}
+        <Table
+          title="Campaign Performance by Female Age Groups"
+          columns={[
+            { key: 'age_group', header: 'Age Group', sortable: true, sortType: 'string' },
+            { key: 'impressions', header: 'Impressions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
+            { key: 'clicks', header: 'Clicks', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
+            { key: 'conversions', header: 'Conversions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
+            { key: 'ctr', header: 'CTR', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` },
+            { key: 'conversion_rate', header: 'Conv. Rate', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` },
+          ]}
+          data={ageGenderPerformance.femaleData}
+          defaultSort={{ key: 'impressions', direction: 'desc' }}
+          emptyMessage="No data available for female age groups."
+        />
+
+      </div>
+
+    </>
   );
 }

@@ -1,6 +1,4 @@
 "use client";
-import { Navbar } from '../../src/components/ui/navbar';
-import { Footer } from '../../src/components/ui/footer';
 import { useState, useEffect, useMemo } from 'react';
 import { fetchMarketingData } from '../../src/lib/api';
 import { MarketingData } from '../../src/types/marketing';
@@ -68,55 +66,45 @@ export default function WeeklyView() {
 
   if (loading) {
     return (
-      <div className="flex h-screen bg-gray-900">
-        <Navbar />
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-white">Loading...</div>
-        </div>
+      <div className="flex h-screen bg-gray-900 items-center justify-center">
+        <div className="text-white">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="flex h-screen bg-gray-900">
-      <Navbar />
-
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col transition-all duration-300 ease-in-out">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-12">
-          <div className="px-6 lg:px-8">
-            <div className="text-center">
-              <h1 className="text-3xl md:text-5xl font-bold">
-                Weekly View
-              </h1>
-            </div>
+    <>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-12">
+        <div className="px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-3xl md:text-5xl font-bold">
+              Weekly View
+            </h1>
           </div>
-        </section>
-
-        {/* display revenue by week and spend by week.  */}
-        <div className="p-6 lg:p-6 overflow-y-auto grid grid-cols-1 xl:grid-cols-2 gap-6">
-          {marketingData && (
-            <>
-              <LineChart
-                title="Weekly Revenue"
-                data={weeklyRevenueData}
-                color="#10B981"
-                yAxisLabel="Revenue (USD)"
-                formatY={(v) => `$${(v / 1000).toFixed(0)}k`} />
-
-              <LineChart
-                title="Weekly Spend"
-                data={weeklySpendData}
-                color="#3B82F6"
-                yAxisLabel="Spend (USD)"
-                formatY={(v) => `$${(v / 1000).toFixed(0)}k`} />
-            </>
-          )}
         </div>
+      </section>
 
-        <Footer />
+      {/* display revenue by week and spend by week.  */}
+      <div className="p-6 lg:p-6 overflow-y-auto grid grid-cols-1 xl:grid-cols-2 gap-6">
+        {marketingData && (
+          <>
+            <LineChart
+              title="Weekly Revenue"
+              data={weeklyRevenueData}
+              color="#10B981"
+              yAxisLabel="Revenue (USD)"
+              formatY={(v) => `$${(v / 1000).toFixed(0)}k`} />
+
+            <LineChart
+              title="Weekly Spend"
+              data={weeklySpendData}
+              color="#3B82F6"
+              yAxisLabel="Spend (USD)"
+              formatY={(v) => `$${(v / 1000).toFixed(0)}k`} />
+          </>
+        )}
       </div>
-    </div>
+    </>
   );
 }
