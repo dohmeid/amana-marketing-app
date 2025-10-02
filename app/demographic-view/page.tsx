@@ -8,8 +8,7 @@ import { useMarketingData } from '@/src/context/marketing-dataprovider';
 
 
 export default function DemographicView() {
-  const { marketingData, error } = useMarketingData();
-
+  const { marketingData } = useMarketingData();
 
   const demographicStats = useMemo(() => {
     const stats = {
@@ -129,11 +128,6 @@ export default function DemographicView() {
 
       {/* Content Area */}
       <div className="flex-1 p-4 lg:p-6 h-full w-full max-w-full">
-        {error && (
-          <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded mb-4 max-w-2xl mx-auto">
-            Error loading data: {error}
-          </div>
-        )}
         {marketingData && (
           <>
             <div className="mb-8">

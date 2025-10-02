@@ -7,14 +7,14 @@ import { BarChart } from '../../src/components/bar-chart';
 import { Table } from '../../src/components/table';
 import { SearchFilter } from '../../src/components/search-filter';
 import { DropdownFilter } from '../../src/components/dropdown-filter';
-import { Target, DollarSign, TrendingUp, Users, Activity, Zap, Filter } from 'lucide-react';
+import { Target, DollarSign, TrendingUp, Users, Filter } from 'lucide-react';
 
 export default function CampaignView() {
   // Filter states
   const [nameFilter, setNameFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState<string[]>([]);
 
-  const { marketingData, error } = useMarketingData();
+  const { marketingData } = useMarketingData();
 
   // Filter campaigns based on current filter values
   const filteredCampaigns = useMemo(() => {
@@ -38,18 +38,10 @@ export default function CampaignView() {
     <>
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-8 sm:py-12">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            {error ? (
-              <div className="bg-red-900 border border-red-700 text-red-200 px-3 sm:px-4 py-3 rounded mb-4 max-w-2xl mx-auto text-sm sm:text-base">
-                Error loading data: {error}
-              </div>
-            ) : (
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
-                Campaign Performance
-              </h1>
-            )}
-          </div>
+        <div className="px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold">
+            Campaign Performance
+          </h1>
         </div>
       </section>
 

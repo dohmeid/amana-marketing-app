@@ -3,7 +3,21 @@ import { useMarketingData } from "@/src/context/marketing-dataprovider";
 
 //wrapping component
 export function AppContent({ children }: { children: React.ReactNode }) {
-    const { loading } = useMarketingData();
+    const { loading, error } = useMarketingData();
+
+    if (error) {
+        return (
+            <div className="flex-1 flex items-center justify-center p-4">
+                <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded max-w-2xl w-full text-center">
+                    <h2 className="font-bold mb-2">Failed to Load Dashboard Data</h2>
+                    <p className="text-sm">An error occurred while fetching the necessary data. Please try again later.</p>
+                    <p className="text-xs mt-4 text-red-300 bg-red-950/50 p-2 rounded">
+                        <code>Error: {error}</code>
+                    </p>
+                </div>
+            </div>
+        );
+    }
 
     if (loading) {
         return (

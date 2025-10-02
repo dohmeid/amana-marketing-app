@@ -4,42 +4,32 @@ import { CardMetric } from '../src/components/card-metric';
 import { Target, DollarSign, TrendingUp, Users, Calendar, Clock, ShoppingBag, MapPin } from 'lucide-react';
 
 export default function Home() {
-  const { marketingData, loading, error } = useMarketingData();
+  const { marketingData } = useMarketingData();
 
   return (
     <>
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-gray-800 to-gray-700 text-white py-6">
-        <div className="px-6 lg:px-8">
-          <div className="text-center">
-            {error ? (
-              <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded mb-4 max-w-2xl mx-auto">
-                Error loading data: {error}
-              </div>
-            ) : marketingData ? (
-              <>
-                <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                  {marketingData.company_info.name}
-                </h1>
-                <p className="text-lg md:text-xl mb-4 opacity-90">
-                  {marketingData.company_info.industry} • Founded {marketingData.company_info.founded}
-                </p>
-                <p className="text-base max-w-3xl mx-auto leading-relaxed opacity-80">
-                  {marketingData.company_info.description}
-                </p>
-              </>
-            ) : null}
-          </div>
+        <div className="px-6 lg:px-8  text-center">
+          {marketingData ? (
+            <>
+              <h1 className="text-3xl md:text-5xl font-bold mb-4">
+                {marketingData.company_info.name}
+              </h1>
+              <p className="text-lg md:text-xl mb-4 opacity-90">
+                {marketingData.company_info.industry} • Founded {marketingData.company_info.founded}
+              </p>
+              <p className="text-base max-w-3xl mx-auto leading-relaxed opacity-80">
+                {marketingData.company_info.description}
+              </p>
+            </>
+          ) : null}
         </div>
       </section>
 
       {/* Dashboard Content */}
       <div className="flex-1 p-4 lg:p-6 overflow-y-auto">
-        {loading ? (
-          <div className="flex items-center justify-center h-64">
-            <div className="text-white">Loading...</div>
-          </div>
-        ) : marketingData && (
+        {marketingData && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             {/* Key Metrics Cards */}
             <CardMetric

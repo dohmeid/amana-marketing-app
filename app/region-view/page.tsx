@@ -26,8 +26,7 @@ const regionCoordinates: { [key: string]: LatLngExpression } = {
 
 
 export default function RegionView() {
-  const { marketingData, error } = useMarketingData();
-
+  const { marketingData } = useMarketingData();
 
   const regionalPerformance = useMemo(() => {
     if (!marketingData?.campaigns) return [];
@@ -77,19 +76,12 @@ export default function RegionView() {
 
       {/* Content Area */}
       <div className="flex-1 p-4 lg:p-6 overflow-y-auto">
-        {/* Page content will go here */}
         <div className="flex-1 p-4 lg:p-6 h-[60vh] md:h-[70vh]">
-          {
-            error ? <div className="text-red-400 text-center">Error: {error}</div> :
-              (
-                <Suspense fallback={<div className="text-white text-center">Loading map...</div>}>
-                  <Map data={mapData} />
-                </Suspense>
-              )}
+          <Suspense fallback={<div className="text-white text-center">Loading map...</div>}>
+            <Map data={mapData} />
+          </Suspense>
         </div>
-
       </div>
-
     </>
   );
 }
