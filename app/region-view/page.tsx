@@ -4,7 +4,7 @@ import { MarketingData, RegionalPerformance } from '@/src/types/marketing';
 import { fetchMarketingData } from '@/src/lib/api';
 import dynamic from 'next/dynamic';
 
-const Map = dynamic(() => import('@/src/components/ui/map'), {
+const Map = dynamic(() => import('@/src/components/map'), {
   ssr: false,
   loading: () => <div className="text-white text-center h-full flex items-center justify-center">Loading map...</div>,
 });

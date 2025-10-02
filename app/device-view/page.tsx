@@ -2,8 +2,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { MarketingData } from '@/src/types/marketing';
 import { fetchMarketingData } from '@/src/lib/api';
-import { CardMetric } from '@/src/components/ui/card-metric';
-import { BarChart } from '@/src/components/ui/bar-chart';
+import { CardMetric } from '@/src/components/card-metric';
+import { BarChart } from '@/src/components/bar-chart';
 import { DollarSign, Smartphone, Monitor } from 'lucide-react';
 
 export default function RegionView() {

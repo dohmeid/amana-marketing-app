@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { fetchMarketingData } from '../src/lib/api';
 import { MarketingData } from '../src/types/marketing';
-import { CardMetric } from '../src/components/ui/card-metric';
+import { CardMetric } from '../src/components/card-metric';
 import { Target, DollarSign, TrendingUp, Users, Calendar, Clock, ShoppingBag, MapPin } from 'lucide-react';
 
 export default function Home() {

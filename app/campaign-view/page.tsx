@@ -2,11 +2,11 @@
 import { useState, useEffect, useMemo } from 'react';
 import { fetchMarketingData } from '../../src/lib/api';
 import { MarketingData, Campaign } from '../../src/types/marketing';
-import { CardMetric } from '../../src/components/ui/card-metric';
-import { BarChart } from '../../src/components/ui/bar-chart';
-import { Table } from '../../src/components/ui/table';
-import { SearchFilter } from '../../src/components/ui/search-filter';
-import { DropdownFilter } from '../../src/components/ui/dropdown-filter';
+import { CardMetric } from '../../src/components/card-metric';
+import { BarChart } from '../../src/components/bar-chart';
+import { Table } from '../../src/components/table';
+import { SearchFilter } from '../../src/components/search-filter';
+import { DropdownFilter } from '../../src/components/dropdown-filter';
 import { Target, DollarSign, TrendingUp, Users, Activity, Zap, Filter } from 'lucide-react';
 
 export default function CampaignView() {

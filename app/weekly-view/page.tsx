@@ -2,8 +2,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { fetchMarketingData } from '../../src/lib/api';
 import { MarketingData } from '../../src/types/marketing';
-import { BarChart } from '../../src/components/ui/bar-chart';
-import { LineChart } from '../../src/components/ui/line-chart';
+import { BarChart } from '../../src/components/bar-chart';
+import { LineChart } from '../../src/components/line-chart';
 
 
 export default function WeeklyView() {
