@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, Suspense } from 'react';
-import {  RegionalPerformance } from '@/src/types/marketing';
+import { RegionalPerformance } from '@/src/types/marketing';
 import dynamic from 'next/dynamic';
 import { useMarketingData } from '@/src/context/marketing-dataprovider';
 
@@ -26,7 +26,7 @@ const regionCoordinates: { [key: string]: LatLngExpression } = {
 
 
 export default function RegionView() {
-   const { marketingData, loading, error } = useMarketingData();
+  const { marketingData, error } = useMarketingData();
 
 
   const regionalPerformance = useMemo(() => {
@@ -62,16 +62,6 @@ export default function RegionView() {
       .filter((item): item is { name: string; coordinates: LatLngExpression; revenue: number; spend: number } => item !== null);
   }, [regionalPerformance]);
 
-
-
-  if (loading) {
-    return (
-      <div className="flex h-screen bg-gray-900 items-center justify-center">
-        <div className="text-white">Loading...</div>
-      </div>
-    );
-  }
-
   return (
     <>
       {/* Hero Section */}
@@ -89,7 +79,7 @@ export default function RegionView() {
       <div className="flex-1 p-4 lg:p-6 overflow-y-auto">
         {/* Page content will go here */}
         <div className="flex-1 p-4 lg:p-6 h-[60vh] md:h-[70vh]">
-          {loading ? <div className="text-white text-center">Loading data...</div> :
+          {
             error ? <div className="text-red-400 text-center">Error: {error}</div> :
               (
                 <Suspense fallback={<div className="text-white text-center">Loading map...</div>}>

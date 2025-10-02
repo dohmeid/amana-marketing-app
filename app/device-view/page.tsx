@@ -6,8 +6,7 @@ import { DollarSign, Smartphone, Monitor } from 'lucide-react';
 import { useMarketingData } from '@/src/context/marketing-dataprovider';
 
 export default function RegionView() {
-   const { marketingData, loading, error } = useMarketingData();
-
+    const { marketingData } = useMarketingData();
 
     const devicePerformance = useMemo(() => {
         if (!marketingData?.campaigns) return null;
@@ -32,15 +31,6 @@ export default function RegionView() {
             mobile: performance.Mobile,
         };
     }, [marketingData?.campaigns]);
-
-
-    if (loading) {
-        return (
-            <div className="flex h-screen bg-gray-900 items-center justify-center">
-                <div className="text-white">Loading...</div>
-            </div>
-        );
-    }
 
     return (
         <>

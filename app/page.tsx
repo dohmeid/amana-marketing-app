@@ -16,12 +16,6 @@ export default function Home() {
               <div className="bg-red-900 border border-red-700 text-red-200 px-4 py-3 rounded mb-4 max-w-2xl mx-auto">
                 Error loading data: {error}
               </div>
-            ) : loading ? (
-              <div className="animate-pulse">
-                <div className="h-10 bg-white/20 rounded mb-4 max-w-md mx-auto"></div>
-                <div className="h-6 bg-white/20 rounded mb-4 max-w-sm mx-auto"></div>
-                <div className="h-4 bg-white/20 rounded max-w-3xl mx-auto"></div>
-              </div>
             ) : marketingData ? (
               <>
                 <h1 className="text-3xl md:text-5xl font-bold mb-4">

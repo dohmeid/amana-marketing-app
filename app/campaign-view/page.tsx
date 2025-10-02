@@ -14,7 +14,7 @@ export default function CampaignView() {
   const [nameFilter, setNameFilter] = useState('');
   const [typeFilter, setTypeFilter] = useState<string[]>([]);
 
-  const { marketingData, loading, error } = useMarketingData();
+  const { marketingData, error } = useMarketingData();
 
   // Filter campaigns based on current filter values
   const filteredCampaigns = useMemo(() => {
@@ -33,14 +33,6 @@ export default function CampaignView() {
     if (!marketingData?.campaigns) return [];
     return [...new Set(marketingData.campaigns.map((campaign: Campaign) => campaign.objective))];
   }, [marketingData?.campaigns]);
-
-  if (loading) {
-    return (
-      <div className="flex-1 flex items-center justify-center">
-        <div className="text-white">Loading...</div>
-      </div>
-    );
-  }
 
   return (
     <>

@@ -8,7 +8,7 @@ import { useMarketingData } from '@/src/context/marketing-dataprovider';
 
 
 export default function DemographicView() {
-  const { marketingData, loading, error } = useMarketingData();
+  const { marketingData, error } = useMarketingData();
 
 
   const demographicStats = useMemo(() => {
@@ -113,16 +113,6 @@ export default function DemographicView() {
       femaleData: processData('Female'),
     };
   }, [marketingData?.campaigns]);
-
-
-  if (loading) {
-    return (
-      <div className="flex-1 flex items-center justify-center">
-        <div className="text-white">Loading...</div>
-      </div>
-    );
-  }
-
 
   return (
     <>

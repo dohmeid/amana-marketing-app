@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "@/src/components/navbar";
 import { Footer } from "@/src/components/footer";
 import { MarketingDataProvider } from "./../src/context/marketing-dataprovider";
+import { AppContent } from "../src/components/app-content";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -32,8 +33,10 @@ export default function RootLayout({
         <MarketingDataProvider>
           <div className="flex-1 flex flex-col transition-all duration-300 ease-in-out h-screen bg-gray-900 lg:flex-row">
             <Navbar />
-            <main className="flex-1 flex flex-col overflow-y-auto">
-              {children}
+            <main className="flex-1 flex flex-col overflow-hidden">
+              <AppContent>
+                {children}
+              </AppContent>
               <Footer />
             </main>
           </div>

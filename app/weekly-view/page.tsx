@@ -5,7 +5,7 @@ import { useMarketingData } from '@/src/context/marketing-dataprovider';
 
 export default function WeeklyView() {
 
-  const { marketingData, loading, error } = useMarketingData();
+  const { marketingData } = useMarketingData();
 
   /* display revenue by week and spend by week.  */
   const weeklyPerformance = useMemo(() => {
@@ -40,14 +40,6 @@ export default function WeeklyView() {
       label: `W${week}`
     }));
   }, [weeklyPerformance]);
-
-  if (loading) {
-    return (
-      <div className="flex h-screen bg-gray-900 items-center justify-center">
-        <div className="text-white">Loading...</div>
-      </div>
-    );
-  }
 
   return (
     <>
