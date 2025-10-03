@@ -1,15 +1,15 @@
 "use client";
-import { useState, useMemo } from 'react';
-import { ChevronUp, ChevronDown, ChevronsUpDown } from 'lucide-react';
+import { useState, useMemo } from "react";
+import { ChevronUp, ChevronDown, ChevronsUpDown } from "lucide-react";
 
 interface TableColumn {
   key: string;
   header: string;
   width?: string;
-  align?: 'left' | 'center' | 'right';
+  align?: "left" | "center" | "right";
   render?: (value: any, row: any) => React.ReactNode;
   sortable?: boolean;
-  sortType?: 'string' | 'number' | 'date';
+  sortType?: "string" | "number" | "date";
 }
 
 interface TableProps {
@@ -20,23 +20,23 @@ interface TableProps {
   maxHeight?: string;
   showIndex?: boolean;
   emptyMessage?: string;
-  defaultSort?: { key: string; direction: 'asc' | 'desc' };
+  defaultSort?: { key: string; direction: "asc" | "desc" };
 }
 
 type SortConfig = {
   key: string;
-  direction: 'asc' | 'desc';
+  direction: "asc" | "desc";
 } | null;
 
-export function Table({ 
-  title, 
-  columns, 
-  data, 
-  className = "", 
+export function Table({
+  title,
+  columns,
+  data,
+  className = "",
   maxHeight = "400px",
   showIndex = false,
   emptyMessage = "No data available",
-  defaultSort
+  defaultSort,
 }: TableProps) {
   const [sortConfig, setSortConfig] = useState<SortConfig>(defaultSort || null);
 
@@ -45,17 +45,17 @@ export function Table({
     if (!sortConfig) return data;
 
     const { key, direction } = sortConfig;
-    const column = columns.find(col => col.key === key);
-    
+    const column = columns.find((col) => col.key === key);
+
     return [...data].sort((a, b) => {
       let aValue = a[key];
       let bValue = b[key];
 
       // Handle different data types
-      if (column?.sortType === 'number') {
+      if (column?.sortType === "number") {
         aValue = Number(aValue) || 0;
         bValue = Number(bValue) || 0;
-      } else if (column?.sortType === 'date') {
+      } else if (column?.sortType === "date") {
         aValue = new Date(aValue).getTime();
         bValue = new Date(bValue).getTime();
       } else {
@@ -64,42 +64,46 @@ export function Table({
         bValue = String(bValue).toLowerCase();
       }
 
-      if (aValue < bValue) return direction === 'asc' ? -1 : 1;
-      if (aValue > bValue) return direction === 'asc' ? 1 : -1;
+      if (aValue < bValue) return direction === "asc" ? -1 : 1;
+      if (aValue > bValue) return direction === "asc" ? 1 : -1;
       return 0;
     });
   }, [data, sortConfig, columns]);
 
   const handleSort = (columnKey: string) => {
-    const column = columns.find(col => col.key === columnKey);
+    const column = columns.find((col) => col.key === columnKey);
     if (!column?.sortable) return;
 
-    setSortConfig(current => {
+    setSortConfig((current) => {
       if (!current || current.key !== columnKey) {
-        return { key: columnKey, direction: 'asc' };
+        return { key: columnKey, direction: "asc" };
       }
-      if (current.direction === 'asc') {
-        return { key: columnKey, direction: 'desc' };
+      if (current.direction === "asc") {
+        return { key: columnKey, direction: "desc" };
       }
       return null; // Remove sorting
     });
   };
 
   const getSortIcon = (columnKey: string) => {
-    const column = columns.find(col => col.key === columnKey);
+    const column = columns.find((col) => col.key === columnKey);
     if (!column?.sortable) return null;
 
     if (!sortConfig || sortConfig.key !== columnKey) {
       return <ChevronsUpDown className="h-4 w-4 text-gray-500" />;
     }
 
-    return sortConfig.direction === 'asc' 
-      ? <ChevronUp className="h-4 w-4 text-blue-400" />
-      : <ChevronDown className="h-4 w-4 text-blue-400" />;
+    return sortConfig.direction === "asc" ? (
+      <ChevronUp className="h-4 w-4 text-blue-400" />
+    ) : (
+      <ChevronDown className="h-4 w-4 text-blue-400" />
+    );
   };
   if (!data || data.length === 0) {
     return (
-      <div className={`bg-gray-800 rounded-lg p-6 border border-gray-700 ${className}`}>
+      <div
+        className={`bg-gray-800 rounded-lg p-6 border border-gray-700 ${className}`}
+      >
         {title && (
           <h3 className="text-lg font-semibold text-white mb-4">{title}</h3>
         )}
@@ -111,15 +115,17 @@ export function Table({
   }
 
   return (
-    <div className={`bg-gray-800 rounded-lg border border-gray-700 ${className}`}>
+    <div
+      className={`bg-gray-800 rounded-lg border border-gray-700 ${className}`}
+    >
       {title && (
         <div className="p-6 pb-0">
           <h3 className="text-lg font-semibold text-white">{title}</h3>
         </div>
       )}
-      
+
       <div className="p-6">
-        <div 
+        <div
           className="overflow-auto rounded-lg border border-gray-700"
           style={{ maxHeight }}
         >
@@ -135,9 +141,12 @@ export function Table({
                   <th
                     key={column.key}
                     className={`px-4 py-3 text-xs font-medium text-gray-400 uppercase tracking-wider ${
-                      column.align === 'center' ? 'text-center' :
-                      column.align === 'right' ? 'text-right' : 'text-left'
-                    } ${column.sortable ? 'cursor-pointer hover:text-gray-200 transition-colors select-none' : ''}`}
+                      column.align === "center"
+                        ? "text-center"
+                        : column.align === "right"
+                          ? "text-right"
+                          : "text-left"
+                    } ${column.sortable ? "cursor-pointer hover:text-gray-200 transition-colors select-none" : ""}`}
                     style={{ width: column.width }}
                     onClick={() => column.sortable && handleSort(column.key)}
                   >
@@ -149,11 +158,11 @@ export function Table({
                 ))}
               </tr>
             </thead>
-            
+
             <tbody className="bg-gray-800 divide-y divide-gray-700">
               {sortedData.map((row, index) => (
-                <tr 
-                  key={index} 
+                <tr
+                  key={index}
                   className="hover:bg-gray-750 transition-colors duration-150"
                 >
                   {showIndex && (
@@ -165,14 +174,16 @@ export function Table({
                     <td
                       key={column.key}
                       className={`px-4 py-4 whitespace-nowrap text-sm text-gray-300 ${
-                        column.align === 'center' ? 'text-center' :
-                        column.align === 'right' ? 'text-right' : 'text-left'
+                        column.align === "center"
+                          ? "text-center"
+                          : column.align === "right"
+                            ? "text-right"
+                            : "text-left"
                       }`}
                     >
-                      {column.render 
+                      {column.render
                         ? column.render(row[column.key], row)
-                        : row[column.key]
-                      }
+                        : row[column.key]}
                     </td>
                   ))}
                 </tr>

@@ -1,7 +1,16 @@
 "use client";
-import { useMarketingData } from '../src/context/marketing-dataprovider';
-import { CardMetric } from '../src/components/card-metric';
-import { Target, DollarSign, TrendingUp, Users, Calendar, Clock, ShoppingBag, MapPin } from 'lucide-react';
+import { useMarketingData } from "../src/context/marketing-dataprovider";
+import { CardMetric } from "../src/components/card-metric";
+import {
+  Target,
+  DollarSign,
+  TrendingUp,
+  Users,
+  Calendar,
+  Clock,
+  ShoppingBag,
+  MapPin,
+} from "lucide-react";
 
 export default function Home() {
   const { marketingData } = useMarketingData();
@@ -17,7 +26,8 @@ export default function Home() {
                 {marketingData.company_info.name}
               </h1>
               <p className="text-lg md:text-xl mb-4 opacity-90">
-                {marketingData.company_info.industry} • Founded {marketingData.company_info.founded}
+                {marketingData.company_info.industry} • Founded{" "}
+                {marketingData.company_info.founded}
               </p>
               <p className="text-base max-w-3xl mx-auto leading-relaxed opacity-80">
                 {marketingData.company_info.description}

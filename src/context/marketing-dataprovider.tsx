@@ -1,7 +1,13 @@
 "use client";
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { MarketingData } from '@/src/types/marketing';
-import { fetchMarketingData } from '@/src/lib/api';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
+import { MarketingData } from "@/src/types/marketing";
+import { fetchMarketingData } from "@/src/lib/api";
 
 interface MarketingDataContextType {
   marketingData: MarketingData | null;
@@ -9,10 +15,14 @@ interface MarketingDataContextType {
   error: string | null;
 }
 
-const MarketingDataContext = createContext<MarketingDataContextType | undefined>(undefined);
+const MarketingDataContext = createContext<
+  MarketingDataContextType | undefined
+>(undefined);
 
 export function MarketingDataProvider({ children }: { children: ReactNode }) {
-  const [marketingData, setMarketingData] = useState<MarketingData | null>(null);
+  const [marketingData, setMarketingData] = useState<MarketingData | null>(
+    null,
+  );
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -22,8 +32,8 @@ export function MarketingDataProvider({ children }: { children: ReactNode }) {
         const data = await fetchMarketingData();
         setMarketingData(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load data');
-        console.error('Error loading marketing data:', err);
+        setError(err instanceof Error ? err.message : "Failed to load data");
+        console.error("Error loading marketing data:", err);
       } finally {
         setLoading(false);
       }
@@ -44,7 +54,9 @@ export function MarketingDataProvider({ children }: { children: ReactNode }) {
 export function useMarketingData() {
   const context = useContext(MarketingDataContext);
   if (context === undefined) {
-    throw new Error('useMarketingData must be used within a MarketingDataProvider');
+    throw new Error(
+      "useMarketingData must be used within a MarketingDataProvider",
+    );
   }
   return context;
 }

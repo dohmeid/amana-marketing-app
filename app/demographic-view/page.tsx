@@ -1,11 +1,11 @@
 "use client";
-import { CardMetric } from '../../src/components/card-metric';
-import { TrendingUp, Target, DollarSign } from 'lucide-react';
-import { useMemo } from 'react';
-import { BarChart } from '@/src/components/bar-chart';
-import { Table } from '@/src/components/table';
-import { useMarketingData } from '@/src/context/marketing-dataprovider';
-import { HeroSection } from '@/src/components/hero-section';
+import { CardMetric } from "../../src/components/card-metric";
+import { TrendingUp, Target, DollarSign } from "lucide-react";
+import { useMemo } from "react";
+import { BarChart } from "@/src/components/bar-chart";
+import { Table } from "@/src/components/table";
+import { useMarketingData } from "@/src/context/marketing-dataprovider";
+import { HeroSection } from "@/src/components/hero-section";
 
 export default function DemographicView() {
   const { marketingData } = useMarketingData();
@@ -20,38 +20,35 @@ export default function DemographicView() {
       return stats;
     }
 
-    marketingData.campaigns.forEach(campaign => {
-      campaign.demographic_breakdown.forEach(demo => {
+    marketingData.campaigns.forEach((campaign) => {
+      campaign.demographic_breakdown.forEach((demo) => {
         const spend = campaign.spend * (demo.percentage_of_audience / 100);
         const revenue = campaign.revenue * (demo.percentage_of_audience / 100);
-        if (demo.gender === 'Male') {
+        if (demo.gender === "Male") {
           stats.male.clicks += demo.performance.clicks;
           stats.male.spend += spend;
           stats.male.revenue += revenue;
-        }
-        else if (demo.gender === 'Female') {
+        } else if (demo.gender === "Female") {
           stats.female.clicks += demo.performance.clicks;
           stats.female.spend += spend;
           stats.female.revenue += revenue;
         }
-      })
-
-    })
+      });
+    });
     return stats;
   }, [marketingData?.campaigns]);
 
   //Total Spend by Age Group + Total Revenue by Age Group
   const ageGroupPerformance = useMemo(() => {
-
-    const performance: { [key: string]: { spends: number, revenues: number } } = {};
+    const performance: { [key: string]: { spends: number; revenues: number } } =
+      {};
 
     if (!marketingData?.campaigns) {
       return performance;
     }
 
-    marketingData.campaigns.forEach(campaign => {
-      campaign.demographic_breakdown.forEach(demo => {
-
+    marketingData.campaigns.forEach((campaign) => {
+      campaign.demographic_breakdown.forEach((demo) => {
         if (!performance[demo.age_group]) {
           performance[demo.age_group] = { spends: 0, revenues: 0 };
         }
@@ -73,43 +70,52 @@ export default function DemographicView() {
           impressions: number;
           clicks: number;
           conversions: number;
-        }
-      }
+        };
+      };
     } = { Male: {}, Female: {} };
 
     if (!marketingData?.campaigns) {
       return { maleData: [], femaleData: [] };
     }
 
-    marketingData.campaigns.forEach(campaign => {
-      campaign.demographic_breakdown.forEach(demo => {
+    marketingData.campaigns.forEach((campaign) => {
+      campaign.demographic_breakdown.forEach((demo) => {
         if (!performance[demo.gender]) {
           performance[demo.gender] = {};
         }
         if (!performance[demo.gender][demo.age_group]) {
-          performance[demo.gender][demo.age_group] = { impressions: 0, clicks: 0, conversions: 0 };
+          performance[demo.gender][demo.age_group] = {
+            impressions: 0,
+            clicks: 0,
+            conversions: 0,
+          };
         }
 
-        performance[demo.gender][demo.age_group].impressions += demo.performance.impressions;
-        performance[demo.gender][demo.age_group].clicks += demo.performance.clicks;
-        performance[demo.gender][demo.age_group].conversions += demo.performance.conversions;
+        performance[demo.gender][demo.age_group].impressions +=
+          demo.performance.impressions;
+        performance[demo.gender][demo.age_group].clicks +=
+          demo.performance.clicks;
+        performance[demo.gender][demo.age_group].conversions +=
+          demo.performance.conversions;
       });
     });
 
-    const processData = (gender: 'Male' | 'Female') => {
+    const processData = (gender: "Male" | "Female") => {
       return Object.entries(performance[gender]).map(([age_group, stats]) => ({
         age_group,
         impressions: stats.impressions,
         clicks: stats.clicks,
         conversions: stats.conversions,
-        ctr: stats.impressions > 0 ? (stats.clicks / stats.impressions) * 100 : 0,
-        conversion_rate: stats.clicks > 0 ? (stats.conversions / stats.clicks) * 100 : 0,
+        ctr:
+          stats.impressions > 0 ? (stats.clicks / stats.impressions) * 100 : 0,
+        conversion_rate:
+          stats.clicks > 0 ? (stats.conversions / stats.clicks) * 100 : 0,
       }));
     };
 
     return {
-      maleData: processData('Male'),
-      femaleData: processData('Female'),
+      maleData: processData("Male"),
+      femaleData: processData("Female"),
     };
   }, [marketingData?.campaigns]);
 
@@ -122,7 +128,9 @@ export default function DemographicView() {
         {marketingData && (
           <>
             <div className="mb-8">
-              <h2 className="text-xl font-semibold text-white mb-4">Male Audience Performance</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">
+                Male Audience Performance
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <CardMetric
                   title="Total Clicks by Males"
@@ -143,7 +151,9 @@ export default function DemographicView() {
             </div>
 
             <div>
-              <h2 className="text-xl font-semibold text-white mb-4">Female Audience Performance</h2>
+              <h2 className="text-xl font-semibold text-white mb-4">
+                Female Audience Performance
+              </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <CardMetric
                   title="Total Clicks by Females"
@@ -172,10 +182,10 @@ export default function DemographicView() {
           {/* Total Spend by Age Group */}
           <BarChart
             title="Total Spend by Age Group"
-            data={Object.keys(ageGroupPerformance).map(ageGroup => ({
+            data={Object.keys(ageGroupPerformance).map((ageGroup) => ({
               label: ageGroup,
               value: ageGroupPerformance[ageGroup].spends,
-              color: '#10B981'
+              color: "#10B981",
             }))}
             formatValue={(value) => `$${value.toLocaleString()}`}
           />
@@ -183,10 +193,10 @@ export default function DemographicView() {
           {/* Total Revenue by Age Group */}
           <BarChart
             title="Total Revenue by Age Group"
-            data={Object.keys(ageGroupPerformance).map(ageGroup => ({
+            data={Object.keys(ageGroupPerformance).map((ageGroup) => ({
               label: ageGroup,
               value: ageGroupPerformance[ageGroup].revenues,
-              color: '#3B82F6'
+              color: "#3B82F6",
             }))}
             formatValue={(value) => `$${value.toLocaleString()}`}
           />
@@ -201,14 +211,49 @@ export default function DemographicView() {
           showIndex={true}
           maxHeight="400px"
           columns={[
-            { key: 'age_group', header: 'Age Group', sortable: true, sortType: 'string', },
-            { key: 'impressions', header: 'Impressions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
-            { key: 'clicks', header: 'Clicks', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
-            { key: 'conversions', header: 'Conversions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
-            { key: 'ctr', header: 'CTR', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` },
-            { key: 'conversion_rate', header: 'Conv. Rate', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` }
+            {
+              key: "age_group",
+              header: "Age Group",
+              sortable: true,
+              sortType: "string",
+            },
+            {
+              key: "impressions",
+              header: "Impressions",
+              sortable: true,
+              sortType: "number",
+              render: (v) => v.toLocaleString(),
+            },
+            {
+              key: "clicks",
+              header: "Clicks",
+              sortable: true,
+              sortType: "number",
+              render: (v) => v.toLocaleString(),
+            },
+            {
+              key: "conversions",
+              header: "Conversions",
+              sortable: true,
+              sortType: "number",
+              render: (v) => v.toLocaleString(),
+            },
+            {
+              key: "ctr",
+              header: "CTR",
+              sortable: true,
+              sortType: "number",
+              render: (v) => `${v.toFixed(2)}%`,
+            },
+            {
+              key: "conversion_rate",
+              header: "Conv. Rate",
+              sortable: true,
+              sortType: "number",
+              render: (v) => `${v.toFixed(2)}%`,
+            },
           ]}
-          defaultSort={{ key: 'impressions', direction: 'desc' }}
+          defaultSort={{ key: "impressions", direction: "desc" }}
           data={ageGenderPerformance.maleData}
           emptyMessage="No data available for male age groups."
         />
@@ -217,20 +262,53 @@ export default function DemographicView() {
         <Table
           title="Campaign Performance by Female Age Groups"
           columns={[
-            { key: 'age_group', header: 'Age Group', sortable: true, sortType: 'string' },
-            { key: 'impressions', header: 'Impressions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
-            { key: 'clicks', header: 'Clicks', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
-            { key: 'conversions', header: 'Conversions', sortable: true, sortType: 'number', render: (v) => v.toLocaleString() },
-            { key: 'ctr', header: 'CTR', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` },
-            { key: 'conversion_rate', header: 'Conv. Rate', sortable: true, sortType: 'number', render: (v) => `${v.toFixed(2)}%` },
+            {
+              key: "age_group",
+              header: "Age Group",
+              sortable: true,
+              sortType: "string",
+            },
+            {
+              key: "impressions",
+              header: "Impressions",
+              sortable: true,
+              sortType: "number",
+              render: (v) => v.toLocaleString(),
+            },
+            {
+              key: "clicks",
+              header: "Clicks",
+              sortable: true,
+              sortType: "number",
+              render: (v) => v.toLocaleString(),
+            },
+            {
+              key: "conversions",
+              header: "Conversions",
+              sortable: true,
+              sortType: "number",
+              render: (v) => v.toLocaleString(),
+            },
+            {
+              key: "ctr",
+              header: "CTR",
+              sortable: true,
+              sortType: "number",
+              render: (v) => `${v.toFixed(2)}%`,
+            },
+            {
+              key: "conversion_rate",
+              header: "Conv. Rate",
+              sortable: true,
+              sortType: "number",
+              render: (v) => `${v.toFixed(2)}%`,
+            },
           ]}
           data={ageGenderPerformance.femaleData}
-          defaultSort={{ key: 'impressions', direction: 'desc' }}
+          defaultSort={{ key: "impressions", direction: "desc" }}
           emptyMessage="No data available for female age groups."
         />
-
       </div>
-
     </>
   );
 }

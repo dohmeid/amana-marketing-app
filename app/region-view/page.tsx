@@ -1,30 +1,33 @@
 "use client";
-import { useMemo, Suspense } from 'react';
-import { RegionalPerformance } from '@/src/types/marketing';
-import dynamic from 'next/dynamic';
-import { useMarketingData } from '@/src/context/marketing-dataprovider';
+import { useMemo, Suspense } from "react";
+import { RegionalPerformance } from "@/src/types/marketing";
+import dynamic from "next/dynamic";
+import { useMarketingData } from "@/src/context/marketing-dataprovider";
 
-const Map = dynamic(() => import('@/src/components/map'), {
+const Map = dynamic(() => import("@/src/components/map"), {
   ssr: false,
-  loading: () => <div className="text-white text-center h-full flex items-center justify-center">Loading map...</div>,
+  loading: () => (
+    <div className="text-white text-center h-full flex items-center justify-center">
+      Loading map...
+    </div>
+  ),
 });
 
-import { LatLngExpression } from 'leaflet';
-import { HeroSection } from '@/src/components/hero-section';
+import { LatLngExpression } from "leaflet";
+import { HeroSection } from "@/src/components/hero-section";
 
 const regionCoordinates: { [key: string]: LatLngExpression } = {
   "Abu Dhabi": [24.4539, 54.3773],
-  "Dubai": [25.2048, 55.2708],
-  "Sharjah": [25.3463, 55.4209],
-  "Riyadh": [24.7136, 46.6753],
-  "Jeddah": [21.4858, 39.1925],
-  "Doha": [25.2854, 51.5310],
+  Dubai: [25.2048, 55.2708],
+  Sharjah: [25.3463, 55.4209],
+  Riyadh: [24.7136, 46.6753],
+  Jeddah: [21.4858, 39.1925],
+  Doha: [25.2854, 51.531],
   "Kuwait City": [29.3759, 47.9774],
-  "Manama": [26.2285, 50.5860],
-  "Muscat": [23.5880, 58.3829],
-  "Cairo": [30.0444, 31.2357],
+  Manama: [26.2285, 50.586],
+  Muscat: [23.588, 58.3829],
+  Cairo: [30.0444, 31.2357],
 };
-
 
 export default function RegionView() {
   const { marketingData } = useMarketingData();
@@ -33,10 +36,17 @@ export default function RegionView() {
     if (!marketingData?.campaigns) return [];
     const performance: { [key: string]: RegionalPerformance } = {};
 
-    marketingData.campaigns.forEach(campaign => {
-      campaign.regional_performance.forEach(regionPerf => {
+    marketingData.campaigns.forEach((campaign) => {
+      campaign.regional_performance.forEach((regionPerf) => {
         if (!performance[regionPerf.region]) {
-          performance[regionPerf.region] = { ...regionPerf, spend: 0, revenue: 0, conversions: 0, impressions: 0, clicks: 0 };
+          performance[regionPerf.region] = {
+            ...regionPerf,
+            spend: 0,
+            revenue: 0,
+            conversions: 0,
+            impressions: 0,
+            clicks: 0,
+          };
         }
         performance[regionPerf.region].spend += regionPerf.spend;
         performance[regionPerf.region].revenue += regionPerf.revenue;
@@ -46,7 +56,7 @@ export default function RegionView() {
       });
     });
 
-    return Object.values(performance).map(p => ({
+    return Object.values(performance).map((p) => ({
       ...p,
       roas: p.spend > 0 ? p.revenue / p.spend : 0,
     }));
@@ -54,12 +64,26 @@ export default function RegionView() {
 
   const mapData = useMemo(() => {
     return regionalPerformance
-      .map(region => {
+      .map((region) => {
         const coordinates = regionCoordinates[region.region];
         if (!coordinates) return null;
-        return { name: region.region, coordinates, revenue: region.revenue, spend: region.spend };
+        return {
+          name: region.region,
+          coordinates,
+          revenue: region.revenue,
+          spend: region.spend,
+        };
       })
-      .filter((item): item is { name: string; coordinates: LatLngExpression; revenue: number; spend: number } => item !== null);
+      .filter(
+        (
+          item,
+        ): item is {
+          name: string;
+          coordinates: LatLngExpression;
+          revenue: number;
+          spend: number;
+        } => item !== null,
+      );
   }, [regionalPerformance]);
 
   return (
@@ -69,7 +93,11 @@ export default function RegionView() {
       {/* Content Area */}
       <div className="flex-1 p-4 lg:p-6 overflow-y-auto">
         <div className="flex-1 p-4 lg:p-6 h-[60vh] md:h-[70vh]">
-          <Suspense fallback={<div className="text-white text-center">Loading map...</div>}>
+          <Suspense
+            fallback={
+              <div className="text-white text-center">Loading map...</div>
+            }
+          >
             <Map data={mapData} />
           </Suspense>
         </div>
