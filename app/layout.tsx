@@ -20,6 +20,10 @@ export const metadata: Metadata = {
   title: "Amana Marketing Dashboard",
   description:
     "Comprehensive marketing analytics and insights for data-driven decision making",
+  icons: {
+    icon: "/favicon.png",
+  },
+
 };
 
 export default function RootLayout({
