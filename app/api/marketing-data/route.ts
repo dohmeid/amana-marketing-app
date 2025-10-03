@@ -2,13 +2,7 @@ import { NextResponse } from "next/server";
 import { headers } from 'next/headers';
 import { MarketingData } from "@/src/types/marketing";
 
-const API_URL = process.env.API_URL || "https://www.amanabootcamp.org/api/fs-classwork-data/amana-marketing";
-
-// allowed origins for better security
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://amana-marketing-0000001.vercel.app/',
-];
+const API_URL = process.env.API_URL!;
 
 // CORS headers configuration
 const corsHeaders = {
@@ -17,24 +11,10 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
-// Validate origin middleware
-function validateOrigin(origin: string | null) {
-  return !origin || allowedOrigins.includes(origin) || process.env.NODE_ENV === 'development';
-}
-
 export async function GET() {
   try {
     // Get request headers
     const headersList = headers();
-    const origin = (await headersList).get('origin');
-
-    // Validate origin
-    if (!validateOrigin(origin)) {
-      return NextResponse.json(
-        { error: 'Not allowed by CORS' },
-        { status: 403 }
-      );
-    }
 
     const response = await fetch(API_URL, {
       method: "GET",
