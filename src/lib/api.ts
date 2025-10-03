@@ -1,66 +1,36 @@
 import { MarketingData, ApiResponse } from '../types/marketing';
 
-// Function to get the correct base URL for API calls
-function getApiBaseUrl(): string {
-  // In production, use the environment variable
-  if (process.env.NODE_ENV === 'production') {
-    return process.env.NEXT_PUBLIC_API_URL || '';
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || '';
+
+class ApiError extends Error {
+  constructor(public status: number, message: string) {
+    super(message);
+    this.name = 'ApiError';
   }
-  
-  // For server-side rendering in development
-  if (typeof window === 'undefined') {
-    return 'http://localhost:3000';
+}
+
+async function handleResponse<T>(response: Response): Promise<T> {
+  if (!response.ok) {
+    const error: ApiResponse = await response.json();
+    throw new ApiError(response.status, error.error || `HTTP error! status: ${response.status}`);
   }
-  
-  // For client-side in development
-  return '';
+  return response.json();
 }
 
 export async function fetchMarketingData(): Promise<MarketingData> {
   try {
-    const baseUrl = getApiBaseUrl();
-    const url = `${baseUrl}/api/marketing-data`;
-    
+    const url = `${BASE_URL}/api/marketing-data`;
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      // Disable caching for development
       cache: 'no-store',
     });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data: MarketingData = await response.json();
-    return data;
+    
+    return handleResponse<MarketingData>(response);
   } catch (error) {
     console.error('Error fetching marketing data:', error);
-    throw new Error(`Failed to fetch marketing data: ${error instanceof Error ? error.message : 'Unknown error'}`);
-  }
-}
-
-// Client-side fetch function for use in components
-export async function fetchMarketingDataClient(): Promise<MarketingData> {
-  try {
-    const response = await fetch('/api/marketing-data', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      const errorData: ApiResponse = await response.json();
-      throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
-    }
-
-    const data: MarketingData = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching marketing data:', error);
-    throw error;
+    throw error instanceof ApiError ? error : new Error('Failed to fetch marketing data');
   }
 }
