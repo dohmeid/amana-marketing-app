@@ -6,6 +6,7 @@
 ![MIT License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 A comprehensive, interactive dashboard for visualizing and analyzing marketing campaign data. Built with Next.js, this application provides insights into campaign performance, demographic breakdowns, device usage, and regional impact. It's designed to help marketers make data-driven decisions by presenting complex data in an intuitive and accessible format.
+<img width="1279" height="730" alt="image" src="https://github.com/user-attachments/assets/9e7ed48c-5cd2-446b-895c-c278b245d1c8" />
 
 
 ## Features
