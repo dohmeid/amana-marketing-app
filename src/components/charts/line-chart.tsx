@@ -61,6 +61,16 @@ export function LineChart({
     return { points, path, maxX, maxY, minX, minY };
   }, [data, height]);
 
+  const yAxisTicks = useMemo(() => {
+    const ticks = [];
+    const tickCount = 5;
+    for (let i = 0; i <= tickCount; i++) {
+      const value = minY + (maxY - minY) * (i / tickCount);
+      ticks.push(value);
+    }
+    return ticks;
+  }, [minY, maxY]);
+
   if (!data || data.length < 2) {
     return (
       <div
@@ -73,16 +83,6 @@ export function LineChart({
       </div>
     );
   }
-
-  const yAxisTicks = useMemo(() => {
-    const ticks = [];
-    const tickCount = 5;
-    for (let i = 0; i <= tickCount; i++) {
-      const value = minY + (maxY - minY) * (i / tickCount);
-      ticks.push(value);
-    }
-    return ticks;
-  }, [minY, maxY]);
 
   return (
     <div

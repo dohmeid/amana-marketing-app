@@ -194,10 +194,9 @@ export function Navbar({ className = "" }: NavbarProps) {
                     onClick={() => handleItemClick(item.id, item.href)}
                     className={`
                       w-full flex items-center space-x-2.5 px-3 py-2.5 rounded-md text-left transition-all duration-200 group cursor-pointer
-                      ${
-                        isActive
-                          ? "bg-blue-600 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white"
+                      ${isActive
+                        ? "bg-blue-600 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white"
                       }
                       ${isCollapsed ? "justify-center px-2" : ""}
                     `}
@@ -207,10 +206,9 @@ export function Navbar({ className = "" }: NavbarProps) {
                       <Icon
                         className={`
                           h-4.5 w-4.5 flex-shrink-0
-                          ${
-                            isActive
-                              ? "text-white"
-                              : "text-gray-400 group-hover:text-gray-200"
+                          ${isActive
+                            ? "text-white"
+                            : "text-gray-400 group-hover:text-gray-200"
                           }
                         `}
                       />
@@ -227,11 +225,10 @@ export function Navbar({ className = "" }: NavbarProps) {
                           <span
                             className={`
                             px-1.5 py-0.5 text-xs font-medium rounded-full
-                            ${
-                              isActive
+                            ${isActive
                                 ? "bg-blue-500 text-white"
                                 : "bg-gray-600 text-gray-200"
-                            }
+                              }
                           `}
                           >
                             {item.badge}

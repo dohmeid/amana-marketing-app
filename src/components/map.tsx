@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Circle, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 import "leaflet-defaulticon-compatibility";
-import { LatLngExpression } from "leaflet";
+import { LatLngExpression, LeafletMouseEvent } from "leaflet";
 
 interface MapProps {
   data: {
@@ -54,13 +54,13 @@ const Map: React.FC<MapProps> = ({ data }) => {
       {data.map((item) => {
         const circleOptions = getCircleOptions(item.revenue);
         const eventHandlers = {
-          mouseover: (event: any) => {
+          mouseover: (event: LeafletMouseEvent) => {
             event.target.setStyle({
               weight: 3,
               fillOpacity: 0.8,
             });
           },
-          mouseout: (event: any) => {
+          mouseout: (event: LeafletMouseEvent) => {
             event.target.setStyle({
               weight: circleOptions.weight,
               fillOpacity: circleOptions.fillOpacity,

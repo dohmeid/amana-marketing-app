@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { headers } from 'next/headers';
 import { MarketingData } from "@/src/types/marketing";
 
 const API_URL = process.env.API_URL!;
@@ -13,9 +12,6 @@ const corsHeaders = {
 
 export async function GET() {
   try {
-    // Get request headers
-    const headersList = headers();
-
     const response = await fetch(API_URL, {
       method: "GET",
       headers: {

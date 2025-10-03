@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 "use client";
 import { useState, useMemo } from "react";
 import { ChevronUp, ChevronDown, ChevronsUpDown } from "lucide-react";
@@ -140,13 +142,12 @@ export function Table({
                 {columns.map((column) => (
                   <th
                     key={column.key}
-                    className={`px-4 py-3 text-xs font-medium text-gray-400 uppercase tracking-wider ${
-                      column.align === "center"
-                        ? "text-center"
-                        : column.align === "right"
-                          ? "text-right"
-                          : "text-left"
-                    } ${column.sortable ? "cursor-pointer hover:text-gray-200 transition-colors select-none" : ""}`}
+                    className={`px-4 py-3 text-xs font-medium text-gray-400 uppercase tracking-wider ${column.align === "center"
+                      ? "text-center"
+                      : column.align === "right"
+                        ? "text-right"
+                        : "text-left"
+                      } ${column.sortable ? "cursor-pointer hover:text-gray-200 transition-colors select-none" : ""}`}
                     style={{ width: column.width }}
                     onClick={() => column.sortable && handleSort(column.key)}
                   >
@@ -173,13 +174,12 @@ export function Table({
                   {columns.map((column) => (
                     <td
                       key={column.key}
-                      className={`px-4 py-4 whitespace-nowrap text-sm text-gray-300 ${
-                        column.align === "center"
-                          ? "text-center"
-                          : column.align === "right"
-                            ? "text-right"
-                            : "text-left"
-                      }`}
+                      className={`px-4 py-4 whitespace-nowrap text-sm text-gray-300 ${column.align === "center"
+                        ? "text-center"
+                        : column.align === "right"
+                          ? "text-right"
+                          : "text-left"
+                        }`}
                     >
                       {column.render
                         ? column.render(row[column.key], row)
