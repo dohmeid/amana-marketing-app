@@ -1,166 +1,88 @@
-# Amana Marketing Dashboard
+# 📊 Marketing Performance Dashboard
 
-A comprehensive marketing analytics dashboard built with Next.js that provides real-time insights into marketing campaign performance, demographics, regional data, and weekly trends.
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![MIT License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+A comprehensive, interactive dashboard for visualizing and analyzing marketing campaign data. Built with Next.js, this application provides insights into campaign performance, demographic breakdowns, device usage, and regional impact. It's designed to help marketers make data-driven decisions by presenting complex data in an intuitive and accessible format.
+
 
 ## Features
 
-### 📊 **Dashboard Overview**
+-   **📈 Campaign Overview:** Analyze key metrics like spend, revenue, conversions, and ROAS across all campaigns.
+-   **👥 Demographic Insights:** View performance data broken down by gender and age group to better understand your audience.
+-   **📱 Device Performance:** Compare metrics between Desktop and Mobile users to optimize for different platforms.
+-   **📅 Weekly Trends:** Track performance over time with dynamic line charts to identify patterns.
+-   **🔍 Interactive Filtering & Sorting:** Dynamically filter campaigns by name or type and sort data tables to find the information you need quickly.
+-   **🎨 Rich Data Visualization:** Utilizes clean and effective bar charts and line charts for clear data representation.
+-   **Responsive Design:** A fully responsive interface that works seamlessly on desktops, tablets, and mobile devices.
 
-- Real-time marketing metrics and KPIs
-- Company information and performance highlights
-- Market insights including peak performance analytics
-- Total campaigns, revenue, ROAS, and conversion tracking
 
-### 🎯 **Campaign Analytics**
+## Tech Stack
 
-- Detailed campaign performance tracking
-- Advanced filtering by campaign name and type
-- Interactive charts for revenue and ROAS comparison
-- Performance breakdown by medium (Instagram, Facebook, Google Ads)
-- Comprehensive campaign data table with sorting capabilities
+-   **Framework:** [Next.js](https://nextjs.org/) 14 (App Router)
+-   **Language:** [TypeScript](https://www.typescriptlang.org/)
+-   **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+-   **State Management:** React Context API
+-   **Icons:** [Lucide React](https://lucide.dev/)
+-   **Data Fetching:** Next.js Route Handlers with built-in caching
 
-### 👥 **Demographic Insights**
-
-- Audience demographic analysis
-- Age group and gender performance metrics
-- Device performance tracking
-- Target audience insights
-
-### 📅 **Weekly Performance**
-
-- Week-over-week performance tracking
-- Time-based analytics and trends
-- Historical performance data
-
-### 🌍 **Regional Analytics**
-
-- Geographic performance breakdown
-- Country and region-specific metrics
-- Regional ROAS and conversion tracking
-
-## Technology Stack
-
-- **Framework**: [Next.js 15](https://nextjs.org) with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Icons**: Lucide React
-- **Data Source**: External API integration with Amana Bootcamp
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (version 18 or higher)
-- npm, yarn, pnpm, or bun
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-git clone <repository-url>
-cd amana-marketing
-```
-
-2. Install dependencies:
-
-```bash
-npm install
-# or
-yarn install
-# or
-pnpm install
-```
-
-3. Start the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to view the dashboard.
 
 ## Project Structure
 
-```
-amana-marketing/
-├── app/                          # Next.js App Router pages
-│   ├── api/marketing-data/       # API routes for data fetching
-│   ├── campaign-view/            # Campaign analytics page
-│   ├── demographic-view/         # Demographic insights page
-│   ├── weekly-view/              # Weekly performance page
-│   ├── region-view/              # Regional analytics page
-│   └── page.tsx                  # Main dashboard page
+The project follows a standard Next.js App Router structure, separating concerns for scalability and maintainability.
+
+├── app/
+│   ├── api/                  # API routes for data fetching
+│   ├── views/                # Contains the different dashboard pages/views
+│   ├── globals.css           # Global styles
+│   ├── layout.tsx            # Root layout
+│   └── page.tsx              # Main entry page
 ├── src/
-│   ├── components/ui/            # Reusable UI components
-│   │   ├── navbar.tsx           # Navigation sidebar
-│   │   ├── card-metric.tsx      # Metric display cards
-│   │   ├── bar-chart.tsx        # Chart components
-│   │   ├── table.tsx            # Data table component
-│   │   └── ...
-│   ├── lib/                      # Utility functions
-│   │   └── api.ts               # API integration
-│   └── types/                    # TypeScript type definitions
-│       └── marketing.ts         # Marketing data types
-└── public/                       # Static assets
-```
+│   ├── components/           # Reusable React components (charts, table, etc.)
+│   ├── context/              # React Context for global state management
+│   ├── lib/                  # Library/utility functions
+│   └── types/                # TypeScript type definitions
+├── .env.local.example        # Example environment variables
+├── next.config.ts
+└── package.json
 
-## Key Components
 
-### Navigation
+## Prerequisites & Installation
+Follow these instructions to get a local copy of the project up and running for development.
 
-- Responsive sidebar navigation with collapsible design
-- Mobile-friendly hamburger menu
-- Active page indication
+1. Make sure you have the following installed on your machine:
+  * [Node.js](https://nodejs.org/en/) (v18.x or later)
+  * [npm](https://www.npmjs.com/), [yarn](https://yarnpkg.com/), or [pnpm](https://pnpm.io/)
 
-### Data Visualization
+2. **Clone the repository:**
+    ```bash
+    git clone [https://github.com/dohmeid/marketing-dashboard.git]
+    ```
 
-- Interactive bar charts for performance metrics
-- Sortable and filterable data tables
-- Real-time metric cards with icons
-- Responsive design for all screen sizes
+3. **Navigate to the project directory:**
+    ```bash
+    cd marketing-dashboard
+    ```
 
-### Filtering System
+4. **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+    
+5. Environment Variables: the application requires an API endpoint to fetch the marketing data from.
+  * Create a `.env.local` file in the root of the project.
+  * Add the following variable, pointing to your data source:
+    ```
+    API_URL="[https://.com/data]"
+    ```
+    
+6. Running the Development Server
+    ```bash
+    npm run dev
+    ```
 
-- Search functionality for campaigns
-- Multi-select dropdown filters
-- Real-time filtering with instant results
-
-## API Integration
-
-The dashboard connects to the Amana Bootcamp API to fetch real-time marketing data:
-
-- Endpoint: `https://www.amanabootcamp.org/api/fs-classwork-data/amana-marketing`
-- Automatic data refresh and error handling
-- CORS-enabled for development
-
-## Development
-
-### Building for Production
-
-```bash
-npm run build
-npm run start
-```
-
-### Tech Stack Details
-
-- **Next.js 15**: Latest version with Turbopack for faster builds
-- **React 19**: Latest React features
-- **TypeScript**: Full type safety
-- **Tailwind CSS 4**: Modern styling framework
-- **Lucide React**: Beautiful, customizable icons
-
-## Contributing
-
-This project is part of the Amana Bootcamp curriculum. Feel free to explore the code and suggest improvements.
-
-## License
-
-This project is for educational purposes as part of the Amana Bootcamp program.
+7. Open http://localhost:3000 in your browser to see the dashboard in action.
