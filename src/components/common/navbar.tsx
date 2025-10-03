@@ -33,31 +33,31 @@ const navigationItems: NavigationItem[] = [
     id: "campaign-view",
     name: "Campaign View",
     icon: Target,
-    href: "/campaign-view",
+    href: "/views/campaign-view",
   },
   {
     id: "demographic-view",
     name: "Demographic View",
     icon: Users,
-    href: "/demographic-view",
+    href: "/views/demographic-view",
   },
   {
     id: "weekly-view",
     name: "Weekly View",
     icon: Calendar,
-    href: "/weekly-view",
+    href: "/views/weekly-view",
   },
   {
     id: "region-view",
     name: "Region View",
     icon: MapPin,
-    href: "/region-view",
+    href: "/views/region-view",
   },
   {
     id: "device-view",
     name: "Device View",
     icon: Smartphone,
-    href: "/device-view",
+    href: "/views/device-view",
   },
 ];
 

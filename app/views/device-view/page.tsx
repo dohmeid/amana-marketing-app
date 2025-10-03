@@ -1,10 +1,10 @@
 "use client";
 import { useMemo } from "react";
-import { CardMetric } from "@/src/components/card-metric";
-import { BarChart } from "@/src/components/bar-chart";
+import { CardMetric } from "@/src/components/common/card-metric";
+import { BarChart } from "@/src/components/charts/bar-chart";
 import { DollarSign, Smartphone, Monitor } from "lucide-react";
 import { useMarketingData } from "@/src/context/marketing-dataprovider";
-import { HeroSection } from "@/src/components/hero-section";
+import { HeroSection } from "@/src/components/common/hero-section";
 
 export default function RegionView() {
   const { marketingData } = useMarketingData();

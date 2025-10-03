@@ -1,13 +1,13 @@
 "use client";
 import { useState, useMemo } from "react";
-import { Campaign } from "../../src/types/marketing";
-import { useMarketingData } from "../../src/context/marketing-dataprovider";
-import { CardMetric } from "../../src/components/card-metric";
-import { BarChart } from "../../src/components/bar-chart";
-import { Table } from "../../src/components/table";
-import { SearchFilter } from "../../src/components/search-filter";
-import { DropdownFilter } from "../../src/components/dropdown-filter";
-import { HeroSection } from "../../src/components/hero-section";
+import { Campaign } from "../../../src/types/marketing";
+import { useMarketingData } from "../../../src/context/marketing-dataprovider";
+import { CardMetric } from "../../../src/components/common/card-metric";
+import { BarChart } from "../../../src/components/charts/bar-chart";
+import { Table } from "../../../src/components/table";
+import { SearchFilter } from "../../../src/components/filters/search-filter";
+import { DropdownFilter } from "../../../src/components/filters/dropdown-filter";
+import { HeroSection } from "../../../src/components/common/hero-section";
 import { Target, DollarSign, TrendingUp, Users, Filter } from "lucide-react";
 
 export default function CampaignView() {

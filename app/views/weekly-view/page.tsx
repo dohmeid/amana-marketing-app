@@ -1,8 +1,8 @@
 "use client";
 import { useMemo } from "react";
-import { LineChart } from "../../src/components/line-chart";
+import { LineChart } from "../../../src/components/charts/line-chart";
 import { useMarketingData } from "@/src/context/marketing-dataprovider";
-import { HeroSection } from "../../src/components/hero-section";
+import { HeroSection } from "../../../src/components/common/hero-section";
 
 export default function WeeklyView() {
   const { marketingData } = useMarketingData();

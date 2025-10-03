@@ -14,7 +14,7 @@ const Map = dynamic(() => import("@/src/components/map"), {
 });
 
 import { LatLngExpression } from "leaflet";
-import { HeroSection } from "@/src/components/hero-section";
+import { HeroSection } from "@/src/components/common/hero-section";
 
 const regionCoordinates: { [key: string]: LatLngExpression } = {
   "Abu Dhabi": [24.4539, 54.3773],

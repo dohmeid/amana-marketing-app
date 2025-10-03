@@ -1,6 +1,6 @@
 "use client";
 import { useMarketingData } from "../src/context/marketing-dataprovider";
-import { CardMetric } from "../src/components/card-metric";
+import { CardMetric } from "../src/components/common/card-metric";
 import {
   Target,
   DollarSign,

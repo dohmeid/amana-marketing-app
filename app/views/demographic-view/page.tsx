@@ -1,11 +1,11 @@
 "use client";
-import { CardMetric } from "../../src/components/card-metric";
+import { CardMetric } from "@/src/components/common/card-metric";
 import { TrendingUp, Target, DollarSign } from "lucide-react";
 import { useMemo } from "react";
-import { BarChart } from "@/src/components/bar-chart";
+import { BarChart } from "@/src/components/charts/bar-chart";
 import { Table } from "@/src/components/table";
 import { useMarketingData } from "@/src/context/marketing-dataprovider";
-import { HeroSection } from "@/src/components/hero-section";
+import { HeroSection } from "@/src/components/common/hero-section";
 
 export default function DemographicView() {
   const { marketingData } = useMarketingData();
