@@ -30,23 +30,24 @@ A comprehensive, interactive dashboard for visualizing and analyzing marketing c
 
 
 ## Project Structure
-
 The project follows a standard Next.js App Router structure, separating concerns for scalability and maintainability.
-
+```
+.
 ├── app/
-│   ├── api/                  # API routes for data fetching
-│   ├── views/                # Contains the different dashboard pages/views
-│   ├── globals.css           # Global styles
-│   ├── layout.tsx            # Root layout
-│   └── page.tsx              # Main entry page
+│   ├── api/                 # API routes for data fetching
+│   ├── views/               # Dashboard pages/views
+│   ├── globals.css          # Global styles
+│   ├── layout.tsx           # Root layout
+│   └── page.tsx             # Main entry page
 ├── src/
-│   ├── components/           # Reusable React components (charts, table, etc.)
-│   ├── context/              # React Context for global state management
-│   ├── lib/                  # Library/utility functions
-│   └── types/                # TypeScript type definitions
-├── .env.local.example        # Example environment variables
+│   ├── components/          # Reusable React components (charts, table, etc.)
+│   ├── context/             # React Context for global state management
+│   ├── lib/                 # Utility/library functions
+│   └── types/               # TypeScript type definitions
+├── .env.local.example       # Example environment variables
 ├── next.config.ts
 └── package.json
+```
 
 
 ## Prerequisites & Installation
