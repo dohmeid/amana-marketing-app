@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "format": "prettier --write ."
+    "dev": "npm run dev --turbopack",
+    "build": "npm run build",
+    "start": "npm run start",
+    "lint": "npm run lint",
+    "format": "npm run format"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
