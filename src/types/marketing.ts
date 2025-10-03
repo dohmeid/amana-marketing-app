@@ -151,7 +151,7 @@ export interface Filters {
   available_formats: string[];
   available_product_categories: string[];
   available_regions: string[];
-  applied: Record<string, any>;
+  applied: Record<string, string | string[]>;
 }
 
 export interface MarketingData {
