@@ -45,11 +45,11 @@ const Map: React.FC<MapProps> = ({ data }) => {
     <MapContainer
       center={mapCenter}
       zoom={6}
-      style={{ height: "100%", width: "100%", backgroundColor: "#1f2937" }}
+      style={{ height: "100%", width: "100%", backgroundColor: "#e5e7eb" }}
     >
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       {data.map((item) => {
         const circleOptions = getCircleOptions(item.revenue);
